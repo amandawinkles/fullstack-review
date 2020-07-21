@@ -7,7 +7,7 @@ let getReposByUsername = (username) => {
 
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
-  //username = 'amandawinkles';
+
   return axios({
     method: 'GET',
     url: `https://api.github.com/users/${username}/repos`,
@@ -16,16 +16,19 @@ let getReposByUsername = (username) => {
       'Authorization': `token ${config.TOKEN}`
     }
   })
-  .then(response => console.log(response))
-  .catch(error => console.log(error))
+  .then(response => {
+    console.log('GET user access successful!');
+    return response.data;
+  })
+  .catch(error => console.log('Error getting user access: ', error))
 }
 
-getReposByUsername('amandawinkles');
+//getReposByUsername('amandawinkles');
 
 
 module.exports.getReposByUsername = getReposByUsername;
 
-//https://api.github.com/users/username/repos
+
 
 
 

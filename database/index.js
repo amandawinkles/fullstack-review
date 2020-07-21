@@ -18,10 +18,10 @@ let Repo = mongoose.model('Repo', repoSchema);
 let save = (githubRepo) => {
   let repo = new Repo();
   repo.userLogin = 'username';
-  repo.repoName = 'reponame';
+  repo.repoName = 'repoName';
   repo.forks = 1;
 
-  await repo.save();
+  repo.save();
 }
 
 module.exports.save = save;

@@ -16,6 +16,7 @@ class App extends React.Component {
   search (term) {
     console.log(`${term} was searched`);
     $.post('http://localhost:1128/repos',
+    //using term, rather than username, so this is what will be sent in request body
       {
         term: term
       })

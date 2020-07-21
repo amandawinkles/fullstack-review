@@ -23,8 +23,6 @@ let getReposByUsername = (username) => {
   .catch(error => console.log('Error getting user access: ', error))
 }
 
-//getReposByUsername('amandawinkles');
-
 
 module.exports.getReposByUsername = getReposByUsername;
 

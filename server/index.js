@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.post('/repos', function (req, res) {
   //use your getReposByUsername function to fetch the specified user's GitHub repos, then use your save function to store the repo information in database
   console.log('🌀req.body.term: ', req.body.term);
-  getUser.getReposByUsername(req.body.username, (err, data) => {
+  getUser.getReposByUsername(req.body.term, (err, data) => {
     if (err) {
       console.log('error getting repos', err);
     } else {
@@ -23,7 +23,6 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
-  //console.log('GET req.body: ', req.body);
   db.Repo.find({})
     .limit(25)
     .then(data => {

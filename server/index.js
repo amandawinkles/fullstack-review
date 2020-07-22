@@ -23,7 +23,8 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
-  db.Repo.find({})
+  //filter
+  db.Repo.find({ "forks": { $gt: 9} })
     .limit(25)
     .then(data => {
       res.send(data)

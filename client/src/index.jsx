@@ -10,19 +10,18 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
+    this.search = this.search.bind(this);
   }
 
   search (term) {
     console.log(`${term} was searched`);
     $.ajax({
       url: 'http://localhost:1128/repos',
-      method: 'GET',
+      method: 'POST',
       data: {
         term: term
         //term is what will be sent in request body
       },
-      contentType: 'application/json',
       success: (data) => {
         console.log('successfully posted data', data);
       },
@@ -33,10 +32,11 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
+    return (
+    <div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <Search onSearch={this.search}/>
     </div>)
   }
 }

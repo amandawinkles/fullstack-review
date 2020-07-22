@@ -11,6 +11,27 @@ class App extends React.Component {
       repos: []
     }
     this.search = this.search.bind(this);
+    this.getUserRepos = this.getUserRepos.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserRepos();
+  }
+
+  getUserRepos() {
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      method: 'GET',
+      success: (data) => {
+        this.setState({
+          repos: data
+        });
+        console.log('GET request successful: ', this.state.repos);
+      },
+      error: (error) => {
+        console.log('error getting data: ', error);
+      }
+    });
   }
 
   search (term) {
@@ -24,6 +45,9 @@ class App extends React.Component {
       },
       success: (data) => {
         console.log('successfully posted data', data);
+        setTimeout(() => {
+          this.getUserRepos();
+        }, 1000)
       },
       error: (error) => {
         console.log('error posting data', error);

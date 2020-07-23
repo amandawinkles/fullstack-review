@@ -22,7 +22,8 @@ app.post('/repos', function (req, res) {
       return db.save(data);
     })
     .then((data) => {
-      res.status(200).send('posted repos matching username to database successfully', data);
+      res.status(200).send('posted repos matching username to database successfully');
+      //res.status(200).send('posted repos matching username to database successfully', data);
     })
     .catch((error) => {
       res.sendStatus(500);

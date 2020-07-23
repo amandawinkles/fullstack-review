@@ -24,17 +24,18 @@ let save = (githubRepos) => {
   //return promise.all()
   //build small promise chain, handle success & error
   return Promise.all(githubRepos)
-    .then((repos) => {
-      repos.map(repo => {
-        repo = new Repo({
-          repoId: githubRepos.repoId,
-          userLogin: githubRepos.userLogin,
-          repoName: githubRepos.repoName,
-          forks: githubRepos.forks
-        })
-        return repo.save();
-      })
-    })
+    .then(values => console.log(values))
+    // .then((repos) => {
+    //   repos.map(repo => {
+    //     repo = new Repo({
+    //       repoId: githubRepos.repoId,
+    //       userLogin: githubRepos.userLogin,
+    //       repoName: githubRepos.repoName,
+    //       forks: githubRepos.forks
+    //     })
+    //   })
+    //   return githubRepos.save();
+    // })
     .catch((error) => {
       console.log('error processing repos in save()', error);
     })

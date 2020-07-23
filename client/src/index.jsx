@@ -14,13 +14,14 @@ class App extends React.Component {
     this.getUserRepos = this.getUserRepos.bind(this);
   }
 
+  //1.
   //gets initial batch of data from db
   //invoked when react is up & running, this fetches data for app
   componentDidMount() {
     this.getUserRepos();
   }
 
-  //1.
+  //1a.
   //runs when app is initialized
   //use getUserRepos more than once
   //sending request to server so server can query db for top 25
@@ -31,12 +32,12 @@ class App extends React.Component {
       url: '/repos',
       method: 'GET',
       success: (response) => {
-        console.log('response from github: ', response);
+        //console.log('response from github: ', response);
         this.setState({
           repos: response
         });
         //setState is async, so this console.log won't be immediate
-        console.log('GET request successful: ', this.state.repos);
+        //console.log('GET request successful: ', this.state.repos);
       },
       error: (error) => {
         console.log('error getting data: ', error);

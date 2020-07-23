@@ -8,9 +8,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../client/dist'));
 
-//2extended.
+//2b.
 //take in post request from client, post username to db
 //tied into search request in client
+//get repos from github, then save in db
 app.post('/repos', function (req, res) {
   //use your getReposByUsername function to fetch the specified user's GitHub repos, then use your save function to store the repo information in database
   console.log('🌀req.body.term: ', req.body.term);
@@ -18,7 +19,7 @@ app.post('/repos', function (req, res) {
   let username = req.body.term;
   getReposByUsername(username)
     .then((data) => {
-      console.log('calling db.save!');
+      console.log('calling db.save(): data: ', data);
       return db.save(data);
     })
     .then((data) => {
@@ -30,16 +31,15 @@ app.post('/repos', function (req, res) {
     })
 });
 
-//1extended.
+//1b.
 //this code is what runs when I startup app- from index.jsx, because this has enpoint repos and get request
-//getting app running
+//query db for top 25 repos
 app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
-  //filter
   db.Repo.find({ "forks": { $gt: 9} })
     .limit(25)
     .then(data => {
-      res.send(data)
+      res.send(data);
     })
     .catch(error => {
       console.log('error fetching data from db', error);
@@ -53,18 +53,3 @@ let port = 1128;
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
-
-
-// app.post('/repos', function (req, res) {
-//   //use your getReposByUsername function to fetch the specified user's GitHub repos, then use your save function to store the repo information in database
-//   console.log('🌀req.body.term: ', req.body.term);
-//   getUserRepos.getReposByUsername(req.body.term, (err, data) => {
-//     if (err) {
-//       console.log('error getting repos', err);
-//     } else {
-//       db.save(data);
-//     }
-//   });
-//   res.status(200);
-// });
-

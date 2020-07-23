@@ -60,16 +60,6 @@ class App extends React.Component {
       data: term,
       //whatever comes back from server for this request will be json
       contentType: 'application/json'
-      // success: (response) => {
-      //   console.log('successfully posted data');
-      //   this.getUserRepos();
-      //   // setTimeout(() => {
-      //   //   this.getUserRepos();
-      //   // }, 1000)
-      // },
-      // error: (error) => {
-      //   console.log('error posting data', error);
-      // }
     })
     //then bring back the data
     .then(() => {
@@ -121,3 +111,14 @@ ReactDOM.render(<App />, document.getElementById('app'));
 //     console.log('successfully posted data')
 //   }
 // })
+
+// success: (response) => {
+      //   console.log('successfully posted data');
+      //   this.getUserRepos();
+      //   // setTimeout(() => {
+      //   //   this.getUserRepos();
+      //   // }, 1000)
+      // },
+      // error: (error) => {
+      //   console.log('error posting data', error);
+      // }

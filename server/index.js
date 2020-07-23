@@ -1,12 +1,13 @@
 const express = require('express');
 let app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 const { getReposByUsername } = require('../helpers/github.js');
 const db = require('../database'); //if going to index, can just refer to directory (will grab index file)
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '/../client/dist'));
+app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 //2b.
 //take in post request from client, post username to db
@@ -19,7 +20,7 @@ app.post('/repos', function (req, res) {
   let username = req.body.term;
   getReposByUsername(username)
     .then((data) => {
-      console.log('calling db.save(): data: ', data);
+      console.log('calling db.save(): ');
       return db.save(data);
     })
     .then((data) => {

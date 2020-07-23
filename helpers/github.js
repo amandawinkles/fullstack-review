@@ -1,26 +1,27 @@
 const axios = require('axios');
 const config = require('../config.js');
 
+//2extended. helper func for getting user repos by username
 let getReposByUsername = (username) => {
   // TODO - Use the axios module to request repos for a specific
   // user from the github API
-
-  // The options object has been provided to help you out,
-  // but you'll have to fill in the URL
-
-  return axios({
+  let options = {
     method: 'GET',
     url: `https://api.github.com/users/${username}/repos`,
     headers: {
       'User-Agent': 'request',
       'Authorization': `token ${config.TOKEN}`
     }
-  })
-  .then(response => {
-    console.log('GET user access successful!');
+  };
+
+  return axios(options)
+  .then((response) => {
     return response.data;
+    //console.log('GET user access successful!: ', response.data);
   })
-  .catch(error => console.log('Error getting user access: ', error))
+  .catch((error) => {
+    console.log('Error getting user access: ', error);
+  });
 }
 
 
@@ -28,7 +29,21 @@ module.exports.getReposByUsername = getReposByUsername;
 
 
 
-
+// return axios({
+//   method: 'GET',
+//   url: `https://api.github.com/users/${username}/repos`,
+//   headers: {
+//     'User-Agent': 'request',
+//     'Authorization': `token ${config.TOKEN}`
+//   }
+// })
+// .then((response) => {
+//   console.log('GET user access successful!: ', response.data);
+//   //return response.data;
+// })
+// .catch((error) => {
+//   console.log('Error getting user access: ', error);
+// });
 
 /*
 // Want to use async/await? Add the `async` keyword to your outer function/method.

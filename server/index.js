@@ -15,17 +15,17 @@ app.post('/repos', function (req, res) {
   //use your getReposByUsername function to fetch the specified user's GitHub repos, then use your save function to store the repo information in database
   console.log('🌀req.body.term: ', req.body.term);
   //func returns promise, so don't need to use Promise.resolve
-  getReposByUsername(req.body.term)
+  let username = req.body.term;
+  getReposByUsername(username)
     .then((data) => {
       console.log('calling db.save!');
       return db.save(data);
     })
     .then((data) => {
-      res.status(200).send('posted username successfully', data);
+      res.status(200).send('posted repos matching username to database successfully', data);
     })
     .catch((error) => {
-      res.status(500).send('error posting username', error);
-      //console.log('error posting username', error);
+      res.sendStatus(500);
     })
 });
 

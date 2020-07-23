@@ -28,7 +28,7 @@ class App extends React.Component {
   //nothing in db first time
   getUserRepos() {
     $.ajax({
-      url: 'http://localhost:1128/repos',
+      url: '/repos',
       method: 'GET',
       success: (response) => {
         console.log('response from github: ', response);
@@ -51,25 +51,32 @@ class App extends React.Component {
   //because consistency is needed between types sent back & forth between computers
   search (term) {
     console.log(`${term} was searched`);
-    term = JSON.stringify({term});
+    term = JSON.stringify({term: term});
     $.ajax({
-      url: 'http://localhost:1128/repos',
+      url: '/repos',
       method: 'POST',
       //term is what will be sent in request body
       data: term,
       //whatever comes back from server for this request will be json
-      contentType: 'application/json',
-      success: (response) => {
-        console.log('successfully posted data');
-        this.getUserRepos();
-        // setTimeout(() => {
-        //   this.getUserRepos();
-        // }, 1000)
-      },
-      error: (error) => {
-        console.log('error posting data', error);
-      }
-    });
+      contentType: 'application/json'
+      // success: (response) => {
+      //   console.log('successfully posted data');
+      //   this.getUserRepos();
+      //   // setTimeout(() => {
+      //   //   this.getUserRepos();
+      //   // }, 1000)
+      // },
+      // error: (error) => {
+      //   console.log('error posting data', error);
+      // }
+    })
+    //then bring back the data
+    .then(() => {
+      this.getUserRepos();
+    })
+    .catch((error) => {
+      console.log('error posting data', error);
+    })
   }
 
   render () {
@@ -105,3 +112,11 @@ ReactDOM.render(<App />, document.getElementById('app'));
 //     }
 //   });
 // }
+
+// $.ajax({
+//   url: '/repos',
+//   method: 'GET',
+//   success: (data) => {
+//     console.log('successfully posted data')
+//   }
+// })

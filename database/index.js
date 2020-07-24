@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect('mongodb://localhost/fetcher'); //going to mongo, ip address is localhost, database
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -7,15 +7,15 @@ db.once('open', function() {
   console.log('connected to db!');
 });
 
-let repoSchema = mongoose.Schema({
+const repoSchema = new mongoose.Schema({
   repoId: {type: Number, default: 0},
   userLogin: {type: String, trim: true, default: ''},
   repoName: {type: String, trim: true, default: ''},
   forks: {type: Number, default: 0}
 });
 
-let Repo = mongoose.model('Repo', repoSchema);
-let datab = new Repo();
+const Repo = mongoose.model('Repo', repoSchema);
+//mongo will make this lowercase & put an s on it
 
 //2d.
 //Repo.insertMany() mongo functionality, also a promise, so return it
@@ -33,8 +33,8 @@ let save = (githubRepos) => {
   return Repo.insertMany(repos)
     .then(result => {
       console.log('saved repos to db', result);
-      return result
-    }) //get here w/defaults
+      return result;
+    })
     .catch(error => console.log('error processing repos in save()', error))
 }
 
